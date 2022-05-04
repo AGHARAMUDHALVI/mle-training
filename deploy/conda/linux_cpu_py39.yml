@@ -1,6 +1,9 @@
 name: mle-dev
 channels:
+  - conda-canary
+  - mutirri
   - defaults
+  - new_channel
 dependencies:
   - _libgcc_mutex=0.1=main
   - _openmp_mutex=4.5=1_gnu
@@ -26,8 +29,6 @@ dependencies:
   - importlib-metadata=4.11.3=py39h06a4308_0
   - ipython=8.2.0=py39h06a4308_0
   - jedi=0.18.1=py39h06a4308_1
-  - jupyter_client=7.1.2=pyhd3eb1b0_0
-  - jupyter_core=4.9.2=py39h06a4308_0
   - ld_impl_linux-64=2.35.1=h7274673_9
   - libffi=3.3=he6710b0_2
   - libgcc-ng=9.3.0=h5101ec6_17
@@ -168,3 +169,4 @@ dependencies:
     - werkzeug==2.1.1
     - widgetsnbextension==3.6.0
     - zipp==3.8.0
+prefix: /home/agharamudhalvi/miniconda3/envs/myclone/mle-dev
