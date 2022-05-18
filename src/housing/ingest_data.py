@@ -1,6 +1,3 @@
-from importlib.resources import path
-import mlflow
-import mlflow.sklearn
 import argparse
 import pandas as pd
 import numpy as np
@@ -10,12 +7,15 @@ from six.moves import urllib
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.impute import SimpleImputer
+from logging import Logger
+from housing.logger import configure_logger
 
 
 DOWNLOAD_ROOT = "https://raw.githubusercontent.com/ageron/handson-ml/master/"
 HOUSING_PATH = os.path.join("data/raw", "housing")
 HOUSING_URL = DOWNLOAD_ROOT + "datasets/housing/housing.tgz"
 imputer = SimpleImputer(strategy="median")
+
 
 def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
     os.makedirs(housing_path, exist_ok=True)
@@ -33,7 +33,7 @@ def load_housing_data(housing_path=HOUSING_PATH):
 def income_cat_proportions(data):
     return data["income_cat"].value_counts() / len(data)
 
-def preprocess(housing):
+def train_test(housing):
 
     train_set, test_set = train_test_split(housing, test_size=0.2, random_state=42)
 
@@ -43,12 +43,10 @@ def preprocess(housing):
         labels=[1, 2, 3, 4, 5],
     )
 
-
     split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
     for train_index, test_index in split.split(housing, housing["income_cat"]):
         strat_train_set = housing.loc[train_index]
         strat_test_set = housing.loc[test_index]
-
 
     train_set, test_set = train_test_split(housing, test_size=0.2, random_state=42)
 
@@ -69,9 +67,11 @@ def preprocess(housing):
     for set_ in (strat_train_set, strat_test_set):
         set_.drop("income_cat", axis=1, inplace=True)
 
+    return strat_train_set, strat_test_set
+
+
+def preprocess(strat_train_set):
     housing = strat_train_set.copy()
-    housing.plot(kind="scatter", x="longitude", y="latitude")
-    housing.plot(kind="scatter", x="longitude", y="latitude", alpha=0.1)
 
     corr_matrix = housing.corr()
     corr_matrix["median_house_value"].sort_values(ascending=False)
@@ -100,34 +100,54 @@ def preprocess(housing):
 
     housing_cat = housing[["ocean_proximity"]]
     housing_prepared = housing_tr.join(pd.get_dummies(housing_cat, drop_first=True))
+    return housing_prepared, housing_labels
 
-    return housing_prepared,housing_labels,strat_test_set
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--datapath", help="path to store the dataset ",type=str,default='data/raw/housing')
+    parser.add_argument("--datapath", help="path to store the dataset ", type=str, default='data/raw/housing')
+    parser.add_argument("--dataprocessed", help="path to store the dataset ",type=str,default='data/processed')
+    parser.add_argument("--log-level", type=str, default="DEBUG")
+    parser.add_argument("--no-console-log", action="store_true")
+    parser.add_argument("--log-path", type=str, default=get_path()+"logs/logs.log")
     return parser.parse_args()
 
+
 def get_path():
-    
-    path_parent=os.getcwd()
+    path_parent = os.getcwd()
     while os.path.basename(os.getcwd()) != 'mle-training':
         path_parent = os.path.dirname(os.getcwd())
         os.chdir(path_parent)
     return os.getcwd()+'/'
 
-data_pro='data/processed/'
+def save_preprocessed(train_X,train_y,test_X,test_y,processed):
+    train_X.to_csv(os.path.join(processed,'train_X.csv'),index=False)
+    train_y.to_csv(os.path.join(processed,'train_y.csv'),index=False)
+    test_X.to_csv(os.path.join(processed,'test_X.csv'),index=False)
+    test_y.to_csv(os.path.join(processed,'test_y.csv'),index=False)
+
+
 if __name__ == "__main__":
-    args= parse_args()
-
-    path_parent=get_path()
-    path=path_parent+args.datapath
+    args = parse_args()
+    logger = configure_logger(
+        log_level=args.log_level,
+        log_file=args.log_path,
+        console=not args.no_console_log,
+    )
+    parent_path=get_path()
+    path=parent_path+args.datapath
     fetch_housing_data(housing_path=path)
-
+    logger.debug("Fetched housing data.")
+    logger.debug(f"Dataset stored at {path}.")
     data=load_housing_data(housing_path=path)
-        
-    prep,lab,testset=preprocess(data)
-
-    prep.to_csv(path_parent+'/'+data_pro+'train_X.csv')
-    lab.to_csv(path_parent+'/'+data_pro+'train_y.csv',index=False)
-    testset.to_csv(path_parent+'/'+data_pro+'train_set.csv')
+    logger.debug("Loaded housing data.")
+    train,test=train_test(data)
+    train_X,train_y = preprocess(train)
+    print(train_X.shape,train_y.shape)
+    logger.debug("Preprocessing housing data...")
+    test_X,test_y = preprocess(test)
+    processed=parent_path+args.dataprocessed
+    if not os.path.exists(processed):
+        os.makedirs(processed)
+    save_preprocessed(train_X,train_y,test_X,test_y,processed)
+    logger.debug(f"Preprocessed train and test datasets stored at {processed}.")

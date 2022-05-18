@@ -1,10 +1,10 @@
-.. mle-training documentation master file, created by
-   sphinx-quickstart on Wed May  4 16:07:17 2022.
+.. Housing documentation master file, created by
+   sphinx-quickstart on Mon May  9 14:48:45 2022.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to mle-training's documentation!
-========================================
+Welcome to Housing's documentation!
+===================================
 
 .. toctree::
    :maxdepth: 2

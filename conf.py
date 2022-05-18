@@ -17,9 +17,9 @@ sys.path.insert(0, os.path.abspath('.'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Housing'
-copyright = '2022, agharamudhalvi c'
-author = 'agharamudhalvi c'
+project = 'mle-training'
+copyright = '2022, agharamudhalvi'
+author = 'agharamudhalvi'
 
 # The full version, including alpha/beta/rc tags
 release = 'v0.3'

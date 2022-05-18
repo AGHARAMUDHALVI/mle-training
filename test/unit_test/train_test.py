@@ -1,28 +1,34 @@
 import os
+from turtle import mode
 
-import src.train as train
+import housing.train as train
 
-args=train.parse_args()
+import unittest
+import os
 
-def test_parse_args():
+args = train.parse_args()
+rootpath = train.get_path()
 
-    assert args.inputpath == "data/processed/"
-    assert args.outputpath == "artifacts"
+class TestTrain(unittest.TestCase):
+    def test_parse_args(self):
 
-path=train.get_path()
-def test_load_data():
+        self.assertTrue( args.inputpath == "data/processed/")
+        self.assertTrue (args.outputpath == "artifacts")
+        self.assertTrue (args.log_level == "DEBUG")
+        self.assertFalse(args.no_console_log)
+        self.assertTrue (args.log_path == rootpath+"logs/logs.log")
 
-    X, y = train.load_data(args.inputpath)
-    assert len(X) == len(y)
-    assert "median_house_value" not in X.columns
-    assert not X.isna().sum().sum()
-    assert len(y.shape) == 1
+    def test_load_data(self):
+        train_X,train_y=train.load_data(rootpath+args.inputpath)
+        self.assertTrue(len(train_X) == len(train_y))
+        self.assertTrue(len(train_y.shape) == 1)
 
-def test_savemodel():
-    model_names=['lin_model','tree_model','forest_model','grid_search_model']
-    for i in model_names:
-        assert os.path.exists(path+args.outputpath+'/'+i+'/model.pkl')
+    def test_save_model(self):
+        models=train.model_names
+        for i in models:
+            self.assertTrue(os.path.isdir(f"{rootpath}{args.outputpath}/{i}"))
 
-test_parse_args()
-test_load_data()
-test_savemodel()
+
+
+if __name__ == '__main__':
+    unittest.main()

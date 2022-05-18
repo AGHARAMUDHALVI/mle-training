@@ -1,10 +1,12 @@
 *.csv
 *.pyc
 *.tgz
-*model/
+*model/**
+
 build/**
 *.egg-info/**
 dist/**
+src/mlruns/**
 mlruns/**
 .flake8
 .vscode/**
