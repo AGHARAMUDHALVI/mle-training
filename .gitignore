@@ -1,2 +1,13 @@
 *.csv
 *.pyc
+*.tgz
+*model/**
+outputs/**
+build/**
+src/mle_AGHARAMUDHALVI.C_housing.egg-info/**
+*.egg-info/**
+dist/**
+src/mlruns/**
+mlruns/**
+.flake8
+.vscode/**
