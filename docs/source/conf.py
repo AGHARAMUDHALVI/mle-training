@@ -12,14 +12,14 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath("../../src/housing/"))
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'Housing-mle'
-copyright = '2022, Agharamudhalvi C'
-author = 'Agharamudhalvi C'
+project = 'mle-training'
+copyright = '2022, Agharamudhalvi c'
+author = 'Agharamudhalvi c'
 
 # The full version, including alpha/beta/rc tags
 release = 'v0.3'

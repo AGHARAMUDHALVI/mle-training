@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>housing package &mdash; Housing-mle v0.3 documentation</title>
+  <title>housing package &mdash; mle-training v0.3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -25,7 +25,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Housing-mle
+            <a href="index.html" class="icon icon-home"> mle-training
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -54,7 +54,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Housing-mle</a>
+          <a href="index.html">mle-training</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -79,10 +79,23 @@
 </section>
 <section id="module-housing.ingest_data">
 <span id="housing-ingest-data-module"></span><h2>housing.ingest_data module<a class="headerlink" href="#module-housing.ingest_data" title="Permalink to this headline"></a></h2>
+<p>This module contains helper functions for ingestion of data.
+Running this standalone downloads the housing data and stores preprocessed copies of it in the specified folders.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.ingest_data.fetch_housing_data">
 <span class="sig-prename descclassname"><span class="pre">housing.ingest_data.</span></span><span class="sig-name descname"><span class="pre">fetch_housing_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">housing_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://raw.githubusercontent.com/ageron/handson-ml/master/datasets/housing/housing.tgz'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">housing_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'data/raw/housing'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#housing.ingest_data.fetch_housing_data" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Function to download and extract housing data.
+Parameters
+———-
+housing_url : str</p>
+<blockquote>
+<div><p>Url to download the housing data from.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>housing_path<span class="classifier">str</span></dt><dd><p>Path to store the raw csv files after extraction.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.ingest_data.get_path">
@@ -102,7 +115,20 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.ingest_data.parse_args">
 <span class="sig-prename descclassname"><span class="pre">housing.ingest_data.</span></span><span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#housing.ingest_data.parse_args" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Commandline argument parser for standalone run.
+Returns
+——-
+arparse.Namespace</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Commandline arguments. Contains keys: [“raw”: str,</dt><dd><p>“processed”: str,
+“log_level”: str,
+“no_console_log”: bool,
+“log_path”: str]</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.ingest_data.preprocess">
@@ -112,7 +138,9 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.ingest_data.save_preprocessed">
 <span class="sig-prename descclassname"><span class="pre">housing.ingest_data.</span></span><span class="sig-name descname"><span class="pre">save_preprocessed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#housing.ingest_data.save_preprocessed" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>To save the data in train and test 
+data in data folder proecssed file</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.ingest_data.train_test">
@@ -125,11 +153,33 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.logger.configure_logger">
 <span class="sig-prename descclassname"><span class="pre">housing.logger.</span></span><span class="sig-name descname"><span class="pre">configure_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">console</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DEBUG'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#housing.logger.configure_logger" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Function to setup configurations of logger through function.
+The individual arguments of <cite>log_file</cite>, <cite>console</cite>, <cite>log_level</cite> will overwrite the ones in cfg.
+Parameters
+———-</p>
+<blockquote>
+<div><dl class="simple">
+<dt>logger:</dt><dd><p>Predefined logger object if present. If None a ew logger object will be created from root.</p>
+</dd>
+<dt>cfg: dict()</dt><dd><p>Configuration of the logging to be implemented by default</p>
+</dd>
+<dt>log_file: str</dt><dd><p>Path to the log file for logs to be stored</p>
+</dd>
+<dt>console: bool</dt><dd><p>To include a console handler(logs printing in console)</p>
+</dd>
+<dt>log_level: str</dt><dd><p>One of <cite>[“INFO”,”DEBUG”,”WARNING”,”ERROR”,”CRITICAL”]</cite>
+default - <cite>“DEBUG”</cite></p>
+</dd>
+</dl>
+</div></blockquote>
+<p>logging.Logger</p>
+</dd></dl>
 
 </section>
 <section id="module-housing.score">
 <span id="housing-score-module"></span><h2>housing.score module<a class="headerlink" href="#module-housing.score" title="Permalink to this headline"></a></h2>
+<p>This module contains helper functions to score the models.
+Can be run standalone with commandline arguments for models and the datasets to score them on.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.score.get_path">
 <span class="sig-prename descclassname"><span class="pre">housing.score.</span></span><span class="sig-name descname"><span class="pre">get_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#housing.score.get_path" title="Permalink to this definition"></a></dt>
@@ -143,22 +193,62 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.score.load_models">
 <span class="sig-prename descclassname"><span class="pre">housing.score.</span></span><span class="sig-name descname"><span class="pre">load_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#housing.score.load_models" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Loads models from given directory path.
+Parameters
+———-
+path : str</p>
+<blockquote>
+<div><p>Path to directory with model pkl files.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>list[sklearn.base.BaseEstimator]</dt><dd><p>List of models loaded from pkl files in directory.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.score.parse_args">
 <span class="sig-prename descclassname"><span class="pre">housing.score.</span></span><span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#housing.score.parse_args" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Commandline argument parser for standalone run.
+Returns
+——-
+arparse.Namespace</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Commandline arguments. Contains keys: [</dt><dd><p>“dataset”: str,
+“models”: str,
+“log_level”: str,
+“no_console_log”: bool,
+“log_path”: str]</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.score.score">
 <span class="sig-prename descclassname"><span class="pre">housing.score.</span></span><span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">models</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_test</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#housing.score.score" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><dl class="simple">
+<dt>Scores given model on given data.</dt><dd><dl class="simple">
+<dt>model<span class="classifier">sklearn.base.BaseEstimator</span></dt><dd><p>Estimator to score.</p>
+</dd>
+<dt>X<span class="classifier">pd.DataFrame</span></dt><dd><p>Input features dataframe.</p>
+</dd>
+<dt>y<span class="classifier">pd.Series</span></dt><dd><p>Ground truth labels.</p>
+</dd>
+</dl>
+</dd>
+<dt>list[sklearn.base.BaseEstimator]</dt><dd><p>List of models loaded from pkl files in directory.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.score.scoring">
 <span class="sig-prename descclassname"><span class="pre">housing.score.</span></span><span class="sig-name descname"><span class="pre">scoring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lin_reg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree_reg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forest_reg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_search</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#housing.score.scoring" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Predict the models based on scores
+scores:RMSE,MAE</p>
+</dd></dl>
 
 </section>
 <section id="module-housing.train">
@@ -171,7 +261,19 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.train.load_data">
 <span class="sig-prename descclassname"><span class="pre">housing.train.</span></span><span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#housing.train.load_data" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Loads dataset and splits features and labels.
+Parameters
+———-
+path : str</p>
+<blockquote>
+<div><p>Path to training dataset csv file.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>tuple[pd.DataFrame, pd.Series]</dt><dd><p>Index 0 is the training features dataframe.
+Index 1 is the training labels series.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.train.model">
@@ -181,7 +283,20 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.train.parse_args">
 <span class="sig-prename descclassname"><span class="pre">housing.train.</span></span><span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#housing.train.parse_args" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Commandline argument parser for standalone run.
+Returns
+——-
+arparse.Namespace</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Commandline arguments. Contains keys:[“dataset input path”: str,</dt><dd><p>“dataset output path”: str,
+“log_level”: str,
+“no_console_log”: bool,
+“log_path”: str]</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.train.rem_artifacts">
@@ -191,7 +306,27 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="housing.train.train">
 <span class="sig-prename descclassname"><span class="pre">housing.train.</span></span><span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">housing_prepared</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">housing_labels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#housing.train.train" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Train the X DataFrame and Y Series.
+Parameters
+———-
+pd.DataFrame : str</p>
+<blockquote>
+<div><p>A DataFrame X for Model Training.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>pd.Series<span class="classifier">str</span></dt><dd><p>A Series Y for Model Training .</p>
+</dd>
+</dl>
+<dl>
+<dt>tuple[sklearn.linear_model.LinearRegression, sklearn.tree.DecisionTreeRegressor,</dt><dd><blockquote>
+<div><p>sklearn.ensemble.RandomForestRegressor, sklearn.model_selection.GridSearchCV
+]</p>
+</div></blockquote>
+<p>Index 0 is the  Linear Regression model.
+Index 1 is the Decision Tree Model.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-housing">
@@ -207,7 +342,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Agharamudhalvi C.</p>
+    <p>&#169; Copyright 2022, Agharamudhalvi c.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
